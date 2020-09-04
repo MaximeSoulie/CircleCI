@@ -2,13 +2,16 @@
  jobs: # we now have TWO jobs, so that a workflow can coordinate them!
    one: # This is our first job.
      docker: # it uses the docker executor
-       - image: circleci/node:13.8.0 # specifically, a docker image with ruby 2.4.1
+       - image: circleci/node:13.8.0 # specifically, a docker image with node
      # Steps are a list of commands to run inside the docker container above.
      steps:
        - checkout # this pulls code down from GitHub
        - run: echo "Hello" # This prints "A first hello" to stdout.
        - run: sleep 2 # a command telling the job to "sleep" for 25 seconds.
    two: # This is our second job.
+         docker: # it uses the docker executor
+       - image: circleci/node:13.8.0 # specifically, a docker image with node
+     # Steps are a list of commands to run inside the docker container above.
      steps:
        - run: echo "World" # We run a similar echo command to above.
        - run: sleep 1 # and then sleep for 15 seconds.
