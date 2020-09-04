@@ -7,7 +7,7 @@
      steps:
        - checkout # this pulls code down from GitHub
        - run: echo "Hello" # This prints "A first hello" to stdout.
-       - run: sleep 2 # a command telling the job to "sleep" for 25 seconds.
+       - run: sleep 1 # a command telling the job to "sleep" for 25 seconds.
    two: # This is our second job.
      docker: # it uses the docker executor
        - image: circleci/node:13.8.0 # specifically, a docker image with node
