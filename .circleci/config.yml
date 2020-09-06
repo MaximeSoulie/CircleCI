@@ -12,9 +12,9 @@ jobs:
     steps:
       - run: return 1
       - run:
-      name: alert on failed test
-      command: echo "careful fail on previous step"
-      when: on_fail
+          name: alert on failed test
+          command: echo "careful fail on previous step"
+          when: on_fail
 
 workflows:
   my_workflow:
