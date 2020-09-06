@@ -1,21 +1,18 @@
 version: 2.1
-commands: # a reusable command with parameters
-   print_pipeline_id:
-      parameters:
-         to:
-           default: "circle_workflow_id"
-           type: string
-      steps:
-         - run: echo "Workflow ID <<parameters.to>>"
+
+commands:
+  print_pipeline_id:
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
+
 jobs:
-   my-job:
-      docker:
-         - image: cimg/base:stable
-      steps:
-         - print_pipeline_id:
-            to: "$CIRCLE_WORKFLOW_ID"
+  my_job:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - print_pipeline_id
+
 workflows:
-   my-workflow:
-      jobs:
-         - my-job        
-         
+  my_workflow:
+    jobs:
+      - my_job
