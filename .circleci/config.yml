@@ -1,19 +1,19 @@
 version: 2.1
 commands: # a reusable command with parameters
-   greeting:
+   print_pipeline_id:
       parameters:
          to:
-           default: "world"
+           default: "circle_workflow_id"
            type: string
       steps:
-         - run: echo "Hello <<parameters.to>>"
+         - run: echo "Workflow ID <<parameters.to>>"
 jobs:
    my-job:
       docker:
          - image: cimg/base:stable
       steps:
          - greeting:
-            to: "Max"
+            to: "$CIRCLE_WORKFLOW_ID"
 workflows:
    my-workflow:
       jobs:
