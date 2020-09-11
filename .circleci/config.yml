@@ -1,22 +1,25 @@
 version: 2.1
 
 jobs:
-  my_job:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run: if curl -s --head "https://google.com" \ 
-             then \
-             echo "It worked!" \
-             else \
-             echo "It failed" \
-             fi
-      - run:
-          name: alert on failed test
-          command: echo "careful fail on previous step"
-          when: on_fail
+  smoke_test:
+      docker:
+        - image: alpine:latest
+      steps:
+        - run: apk add --update curl
+        - run:
+            name: smoke test.
+            command: |
+              URL="https://blog.udacity.com/"
+              if curl -s --head ${URL} # test if blog.udacity. com exists
+              then
+               return 0
+              else
+               return 1
+              fi
 
 workflows:
   my_workflow:
     jobs:
-      - my_job
+      - smoke_test:
+          requires:
+            - configure_infrastructure
