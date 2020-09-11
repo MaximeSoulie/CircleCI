@@ -1,16 +1,16 @@
 version: 2.1
 
-commands:
-  print_pipeline_id:
-    steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
-
 jobs:
   my_job:
     docker:
-      - image: circleci/node:13.8.0
+      - image: alpine/latest
     steps:
-      - run: return 1
+      - run: if curl -s --head "https://google.com" \ 
+             then \
+             echo "It worked!" \
+             else \
+             echo "It failed" \
+             fi
       - run:
           name: alert on failed test
           command: echo "careful fail on previous step"
